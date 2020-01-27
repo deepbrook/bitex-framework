@@ -5,10 +5,6 @@ from typing import Optional
 
 # Third-party
 import requests
-from bitex.auth import BitexAuth
-from bitex.plugins import PLUGINS
-from bitex.request import BitexPreparedRequest, BitexRequest
-from bitex.response import BitexResponse
 from requests.compat import cookielib
 from requests.cookies import RequestsCookieJar, cookiejar_from_dict, merge_cookies
 from requests.sessions import merge_hooks, merge_setting
@@ -17,6 +13,10 @@ from requests.utils import get_netrc_auth
 
 # Home-brew
 from bitex.adapter import BitexHTTPAdapter
+from bitex.auth import BitexAuth
+from bitex.plugins import PLUGINS
+from bitex.request import BitexPreparedRequest, BitexRequest
+from bitex.response import BitexResponse
 
 # Init Logging Facilities
 log = logging.getLogger(__name__)
@@ -87,9 +87,7 @@ class BitexSession(requests.Session):
 
         proxies = proxies or {}
 
-        settings = self.merge_environment_settings(
-            prep.url, proxies, stream, verify, cert
-        )
+        settings = self.merge_environment_settings(prep.url, proxies, stream, verify, cert)
 
         # Send the request.
         send_kwargs = {"timeout": timeout, "allow_redirects": allow_redirects}
@@ -138,9 +136,7 @@ class BitexSession(requests.Session):
             files=request.files,
             data=request.data,
             json=request.json,
-            headers=merge_setting(
-                request.headers, self.headers, dict_class=CaseInsensitiveDict
-            ),
+            headers=merge_setting(request.headers, self.headers, dict_class=CaseInsensitiveDict),
             params=merge_setting(request.params, self.params),
             auth=merge_setting(auth, self.auth),
             cookies=merged_cookies,
@@ -180,9 +176,7 @@ class BitexSession(requests.Session):
         """
         self.auth.secret = value
 
-    def ticker(
-        self, exchange: str, pair: str, method: str = "GET", **kwargs
-    ) -> BitexResponse:
+    def ticker(self, exchange: str, pair: str, method: str = "GET", **kwargs) -> BitexResponse:
         """Request ticker data for the given `pair` at the given `exchange`.
 
         :param str exchange: The exchange you'd like to request data from.
@@ -195,9 +189,7 @@ class BitexSession(requests.Session):
         """
         return self.request(method, f"{exchange}://{pair}/ticker", **kwargs)
 
-    def orderbook(
-        self, exchange: str, pair: str, method: str = "GET", **kwargs
-    ) -> BitexResponse:
+    def orderbook(self, exchange: str, pair: str, method: str = "GET", **kwargs) -> BitexResponse:
         """Request order book data for the given `pair` at the given `exchange`.
 
         :param str exchange: The exchange you'd like to request data from.
@@ -210,9 +202,7 @@ class BitexSession(requests.Session):
         """
         return self.request(method, f"{exchange}://{pair}/book", **kwargs)
 
-    def trades(
-        self, exchange: str, pair: str, method: str = "GET", **kwargs
-    ) -> BitexResponse:
+    def trades(self, exchange: str, pair: str, method: str = "GET", **kwargs) -> BitexResponse:
         """Request trade data for the given `pair` at the given `exchange`.
 
         :param str exchange: The exchange you'd like to request data from.
@@ -225,9 +215,7 @@ class BitexSession(requests.Session):
         """
         return self.request(method, f"{exchange}://{pair}/trades", **kwargs)
 
-    def new_order(
-        self, exchange: str, pair: str, method: str = "POST", **kwargs
-    ) -> BitexResponse:
+    def new_order(self, exchange: str, pair: str, method: str = "POST", **kwargs) -> BitexResponse:
         """Create a new order for `pair` at the given `exchange`.
 
         :param str exchange: The exchange you'd like to request data from.
@@ -274,9 +262,7 @@ class BitexSession(requests.Session):
         """
         return self.request(method, f"{exchange}://{pair}/order/status", **kwargs)
 
-    def wallet(
-        self, exchange: str, currency: str, method: str = "GET", **kwargs
-    ) -> BitexResponse:
+    def wallet(self, exchange: str, currency: str, method: str = "GET", **kwargs) -> BitexResponse:
         """Request wallet data for the given `pair` at the given `exchange`.
 
         :param str exchange: The exchange you'd like to request data from.

@@ -1,0 +1,36 @@
+#######################
+# TOOL CONFIGURATIONS #
+#######################
+
+[tool.isort]
+line_length = 99
+known_future_library = "future"
+known_first_party = "bitex"
+default_section = "THIRDPARTY"
+combine_as_imports = true
+import_heading_stdlib = "Built-in"
+import_heading_thirdparty = "Third-party"
+import_heading_firstparty = "Home-brew"
+
+# black compatibility
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+
+[tool.black]
+line-length = 99
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | tests
+  | docs
+)/
+'''

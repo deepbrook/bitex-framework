@@ -1,15 +1,15 @@
 """Custom :class:`requests.HTTPAdapter` for :mod:`bitex-framework`."""
-# Home-brew
-from bitex.plugins import PLUGINS
-from bitex.request import BitexPreparedRequest
-from bitex.response import BitexResponse
-
 # Third-party
 from requests.adapters import HTTPAdapter
 from requests.cookies import extract_cookies_to_jar
 from requests.structures import CaseInsensitiveDict
 from requests.utils import get_encoding_from_headers
 from urllib3.response import HTTPResponse
+
+# Home-brew
+from bitex.plugins import PLUGINS
+from bitex.request import BitexPreparedRequest
+from bitex.response import BitexResponse
 
 
 class BitexHTTPAdapter(HTTPAdapter):
@@ -20,9 +20,7 @@ class BitexHTTPAdapter(HTTPAdapter):
     :mod:`bitex-framework` 's own default :class:`BitexResponse` class.
     """
 
-    def build_response(
-        self, req: BitexPreparedRequest, resp: HTTPResponse
-    ) -> BitexResponse:
+    def build_response(self, req: BitexPreparedRequest, resp: HTTPResponse) -> BitexResponse:
         """Build a :class:`BitexResponse` from the given `req` and `resp`.
 
         The method is largely identical to :meth:`HTTPAdapter.build_response`,

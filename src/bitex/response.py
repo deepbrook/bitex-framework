@@ -2,11 +2,11 @@
 # Built-in
 from typing import List
 
-# Home-brew
-from bitex.types import KeyValuePairs, Triple
-
 # Third-party
 from requests.models import Response
+
+# Home-brew
+from bitex.types import KeyValuePairs, Triple
 
 
 class BitexResponse(Response):
