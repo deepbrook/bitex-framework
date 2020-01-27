@@ -103,6 +103,6 @@ As long as a plugin for `SomeExchange` is installed, :mod:`bitex-framework` will
 short-hand to a fully-qualified URL under the hood.
 """
 # Home-brew
-from src.bitex.adapter import BitexHTTPAdapter
+from bitex.adapter import BitexHTTPAdapter
 
 __version__ = "2.0.0"

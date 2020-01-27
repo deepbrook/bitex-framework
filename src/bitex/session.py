@@ -16,7 +16,7 @@ from requests.structures import CaseInsensitiveDict
 from requests.utils import get_netrc_auth
 
 # Home-brew
-from src.bitex.adapter import BitexHTTPAdapter
+from bitex.adapter import BitexHTTPAdapter
 
 # Init Logging Facilities
 log = logging.getLogger(__name__)
