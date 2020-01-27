@@ -1,41 +1,27 @@
-.PHONY: install install-dev install-ci install-test tests lint style black black-check isort isort-check flake8 tag publish
+.PHONY: dev-deps test-deps development ci-deps extras-deps style-check pretty tag-type tag-patch tag-feature package
 SHELL := /bin/bash
 
-install:
-	pip install .
-
-install-dev:
+dev-deps:
 	pip install ".[dev]"
 
-install-test:
+test-deps:
 	pip install ".[test]"
 
-install-ci: install-dev install-test
-	pip install flit twine
+development: dev-deps test-deps
 
-tests:
-	cd tests/ && pytest --cov=bitex --disable-warnings -vvv
+ci-deps: dev-deps test-deps
+	pip install ".[ci]"
 
-black:
-	black bitex
+extras-deps: dev-deps test-deps ci-deps
 
-isort:
-	isort --recursive bitex
+pretty:
+	black  src/bitex
+	isort --recursive src/bitex
 
-isort-check:
-	isort --recursive --diff --check-only bitex
-
-black-check:
-	black --check --diff bitex
-
-flake8:
-	flake8 bitex
-
-style: isort black
-
-lint: flake8 black-check isort-check
-
-checks: lint tests
+style-check:
+	flake8  src/bitex
+	black --check --diff src/bitex
+	isort --recursive --diff --check-only src/bitex
 
 tag-type:
 	@bash .circleci/tag_type.sh
@@ -43,12 +29,17 @@ tag-type:
 tag-feature:
 	@echo Tagging new Feature
 	bumpversion minor --verbose
-	@echo tag commit
 
 tag-patch:
 	@echo Tagging new Patch
 	bumpversion patch --verbose
-	@echo tag commit
 
-publish: lint tests
-	@echo Publish to pypi
+package:
+	@echo Creating distribution
+	pip install --upgrade setuptools wheel
+	python setup.py sdist bdist_wheel
+	@echo Checking packaging
+	pip install --upgrade twine
+	twine check dist/*
+	twine upload --repository-url https://test.pypi.org/legacy/ --non-interactive --skip-existing dist/*
+	tox -e packaging

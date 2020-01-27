@@ -61,7 +61,7 @@ commands:
     steps:
       - run:
           name: Run Linters
-          command: make lint
+          command: make style-check
 
 
   unit_tests:
@@ -69,17 +69,7 @@ commands:
     steps:
       - run:
           name: Run tests
-          command: make tests
-
-
-  integration_tests:
-    description: Run integration tests
-    steps:
-      - run:
-          name: Run tests
-          command: |
-            make integration-tests
-
+          command: tox -e testenv
 
   tag_release:
     description: Determine and create new Tag
@@ -89,14 +79,21 @@ commands:
             if [[ "$(make tag-type)" == "minor"]]; then
               make tag-feature
               git push --tags
-            elif [[ "#(make tag-type)" == "patch" ]]; then
+            elif [[ "$(make tag-type)" == "patch" ]]; then
               make tag-patch
               git push --tags
             else
-              echo "No tag type was set - commit must start with FEAT or FIX!"
+              echo "No tag type was set - commit must start with FEAT or FIX in order to be tagged."
               echo "Skipping tagging"
             fi
 
+  check_packaging:
+    description: |
+      Package our library and verify it's installable via pypi.
+      Requires TWINE_USERNAME, TWINE_PASSWORD, and TWINE_REPOSITORY to be set.
+    steps:
+      - run:
+          command: make packaging
 
   publish_on_pypi:
     description: |
@@ -104,9 +101,7 @@ commands:
       Requires TWINE_USERNAME, TWINE_PASSWORD, and TWINE_REPOSITORY to be set.
     steps:
       - run:
-          command: |
-            flit build
-            twine upload dist/* --non-interactive --skip-existing
+          command: twine upload dist/*
 
 
   restore_project_caches:
@@ -141,7 +136,6 @@ commands:
 ################################################################################
 
 jobs:
-
   preparation:
     working_directory: ~/ci
     docker:
@@ -158,7 +152,7 @@ jobs:
       - run:
           name: Install project
           command:
-            - make install-ci
+            - make ci-deps
 
       - persist_to_workspace:
           paths:
@@ -211,25 +205,17 @@ workflows:
     <<: *ignore_master
     jobs:
       - preparation
-      - static-checks:
-          requires:
-            - preparation
-      - unit-tests
-      - integration-tests
+      - static-checks: {"requires": ["preparation"]}
+      - unit-tests: {"requires": ["preparation"]}
+      - integration-tests: {"requires": ["unit-tests"]}
 
   Commit-Workflow:
     <<: *master_only
     jobs:
       - preparation
-      - static-checks:
-          requires:
-            - preparation
-      - unit-tests:
-          requires:
-            - preparation
-      - integration-tests:
-          requires:
-            - preparation
+      - static-checks: {"requires": ["preparation"]}
+      - unit-tests: {"requires": ["preparation"]}
+      - integration-tests: {"requires": ["unite"]}
       - tagging:
           requires:
           - static-checks
@@ -240,6 +226,5 @@ workflows:
     <<: *tags_only
     jobs:
       - preparation
-      - publish:
-          requires:
-            - preparation
+      - packaging: {"requires": ["preparation"]}
+      - publish:  {"requires": ["packaging"]}
