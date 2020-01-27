@@ -1,8 +1,8 @@
-####################################
-BitEx - Bitcoin Exchange API Wrapper
-####################################
+############################################
+BitEx Framework - Bitcoin Exchange REST APIs
+############################################
 
-Bitex is a python3 library for making requests to crypto currency exchanges
+`Bitex` is a python3 library for making requests to crypto currency exchanges
 a breeze. With the ever increasing number of exchanges setting up shop, it becomes
 increasingly more difficult to acquire data in a convenient way. This is mostly
 due to the fact that each exchange cooks up their own API spec, with no general
@@ -10,6 +10,9 @@ consensus on HTTP methods, input format or authentication method.
 
 Bitex aims to abstract the gritty details of exchange APIs away, by supplying
 extensions to the popular :mod:`requests` library.
+
+Under the hood, `BitEx` is powered by `Bitex-Framework`, as lightweight framework
+laying the foundation for its features.
 
 Features
 ========
@@ -31,13 +34,18 @@ Installation
 
 Installation is simple, as it should be::
 
-    pip install bitex
+    pip install bitex-framework
 
-BitEx, by default, does not come with any extensions. But fret not! Plugins for
+`bitex-framework`, being the core module, does not come with any extensions. But fret not! Plugins for
 exchanges are available via pip as well, under the `bitex` namespace like so::
 
     pip install bitex-${EXCHANGE_NAME}
 
+If you'd like to install the full suite of bells and whistles, try::
+
+    pip install bitex
+
+to install all of bitex's verified REST API plugins along with the core framework module.
 
 Qickstart
 =========
@@ -127,26 +135,19 @@ If you're looking to work on or with :mod:`bitex-framework`, you'll want the dev
 environment setup. We've supplied a few `make` targets to make your life easier::
 
     # Install bitex and its development requirements
-    make install-dev
+    make development
 
-.. note::
-
-    As the project currently uses :mod:`flit` as a packaging backend, there is no
-    support for editable installs (`pip install -e`) as of now.
 
 We also supply targets to run code formatters, linters and tests::
 
     # Run code formatters
-    make style
+    make pretty
 
-    # Run linters
-    make lint
+    # Verify code style
+    make style-check
 
-    # Run the test suite
-    make tests
-
-    # Run linters and tests
-    make checks
+    # Run tests via tox
+    tox -e testenv
 
 If you'd like to contribute to the project, please have a look at :doc:`CONTRIBUTING.rst`
 on some general pointers about how development takes place, what the expected

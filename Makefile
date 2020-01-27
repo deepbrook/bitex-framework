@@ -1,5 +1,8 @@
-.PHONY: dev-deps test-deps development ci-deps extras-deps style-check pretty tag-type tag-patch tag-feature package
+.PHONY: dev dev-deps test-deps development ci-deps extras-deps style-check pretty tag-type tag-patch tag-feature package
 SHELL := /bin/bash
+
+dev:
+	pip install -e .
 
 dev-deps:
 	pip install ".[dev]"
@@ -7,7 +10,7 @@ dev-deps:
 test-deps:
 	pip install ".[test]"
 
-development: dev-deps test-deps
+development: dev dev-deps test-deps
 
 ci-deps: dev-deps test-deps
 	pip install ".[ci]"
