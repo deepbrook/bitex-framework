@@ -123,7 +123,7 @@ After installing, requesting data is easy::
 Development
 ===========
 
-If you're looking to work on or with :mod:`bitex`, you'll want the development
+If you're looking to work on or with :mod:`bitex-framework`, you'll want the development
 environment setup. We've supplied a few `make` targets to make your life easier::
 
     # Install bitex and its development requirements
