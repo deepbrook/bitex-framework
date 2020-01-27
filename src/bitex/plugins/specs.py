@@ -1,4 +1,4 @@
-"""Hook Specifications for :mod:`bitex`'s plugin system.
+"""Hook Specifications for :mod:`bitex-framework`'s plugin system.
 
 Example
 -------
@@ -71,7 +71,7 @@ hookspec = pluggy.HookspecMarker("bitex")
 def announce_plugin() -> Union[
     Tuple[str, Type[AuthBase], Type[PreparedRequest], Type[Response]], None
 ]:
-    """Announce plugin classes to :mod:`bitex`.
+    """Announce plugin classes to :mod:`bitex-framework`.
 
     The function should return a tuple with the following items:
 

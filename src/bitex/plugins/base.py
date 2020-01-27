@@ -1,4 +1,4 @@
-"""Hook Implementation for :mod:`bitex`'s plugin system.
+"""Hook Implementation for :mod:`bitex-framework`'s plugin system.
 
 This serves both as the fall-back default, as well as a reference implementation
 of the hook specs.
@@ -18,7 +18,7 @@ hookimpl = pluggy.HookimplMarker("bitex-core")
 def announce_plugin() -> Union[
     Tuple[str, Type[HTTPBasicAuth], Type[PreparedRequest], Type[Response]], None
 ]:
-    """Register a plugin's custom classes to :mod:`bitex`.
+    """Register a plugin's custom classes to :mod:`bitex-framework`.
 
     By default we return a tuple of :class:`str("base")`, :class:`.HTTPBasicBase`,
     :class:`.PreparedRequest` and :class:`.Response`.
@@ -32,7 +32,7 @@ def construct_url_from_shorthand(
 ) -> Union[str, Tuple[str, Dict[str, Any]], None]:
     """Since bitex is exchange-agnostic at its core, we return `None`.
 
-    Returning `None` causes :mod:`bitex` to leave the given url untouched and
+    Returning `None` causes :mod:`bitex-framework` to leave the given url untouched and
     pass it on to the :mod:`requests` components as is.
     """
     return None

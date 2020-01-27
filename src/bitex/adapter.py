@@ -1,4 +1,9 @@
-"""Custom :class:`requests.HTTPAdapter` for :mod:`bitex`."""
+"""Custom :class:`requests.HTTPAdapter` for :mod:`bitex-framework`."""
+# Home-brew
+from bitex.plugins import PLUGINS
+from bitex.request import BitexPreparedRequest
+from bitex.response import BitexResponse
+
 # Third-party
 from requests.adapters import HTTPAdapter
 from requests.cookies import extract_cookies_to_jar
@@ -6,21 +11,18 @@ from requests.structures import CaseInsensitiveDict
 from requests.utils import get_encoding_from_headers
 from urllib3.response import HTTPResponse
 
-# Home-brew
-from bitex.plugins import PLUGINS
-from bitex.request import BitexPreparedRequest
-from bitex.response import BitexResponse
-
 
 class BitexHTTPAdapter(HTTPAdapter):
     """Custom HTTP Adapter for :mod:`Bitex`.
 
     It replaces :class:`requests.Response` as the default response class when
     building the response, with either an adequate plugin-supplied class or
-    :mod:`bitex` 's own default :class:`BitexResponse` class.
+    :mod:`bitex-framework` 's own default :class:`BitexResponse` class.
     """
 
-    def build_response(self, req: BitexPreparedRequest, resp: HTTPResponse) -> BitexResponse:
+    def build_response(
+        self, req: BitexPreparedRequest, resp: HTTPResponse
+    ) -> BitexResponse:
         """Build a :class:`BitexResponse` from the given `req` and `resp`.
 
         The method is largely identical to :meth:`HTTPAdapter.build_response`,
@@ -28,7 +30,7 @@ class BitexHTTPAdapter(HTTPAdapter):
 
         This class is taken firstly from any valid plugin that supplies an
         adequate class for the exchange that was queried (as stated in
-        :attr:`BitexPreparedRequest.exchange`), or :mod:`bitex` 's own default
+        :attr:`BitexPreparedRequest.exchange`), or :mod:`bitex-framework` 's own default
         :class:`BitexResponse` class.
 
         :param BitexPreparedRequest req:

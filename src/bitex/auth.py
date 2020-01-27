@@ -1,4 +1,4 @@
-"""Basic auth class for :mod:`bitex`."""
+"""Basic auth class for :mod:`bitex-framework`."""
 # Built-in
 import json
 import logging

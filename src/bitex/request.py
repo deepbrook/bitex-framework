@@ -1,10 +1,6 @@
-""":mod:`bitex` extension for :class:`requests.Request` &  :class:`requests.PreparedRequest` classes."""
+""":mod:`bitex-framework` extension for :class:`requests.Request` &  :class:`requests.PreparedRequest` classes."""
 # Built-in
 from typing import Union
-
-# Third-party
-from requests import PreparedRequest, Request
-from requests.packages.urllib3.util import parse_url
 
 # Home-brew
 from bitex.constants.private import (
@@ -13,6 +9,10 @@ from bitex.constants.private import (
 )
 from bitex.plugins import PLUGINS
 from bitex.types import RegexMatchDict
+
+# Third-party
+from requests import PreparedRequest, Request
+from requests.packages.urllib3.util import parse_url
 
 
 class BitexPreparedRequest(PreparedRequest):

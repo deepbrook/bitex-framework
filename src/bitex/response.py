@@ -1,12 +1,12 @@
-"""Customized :class:`requests.Response` class for the :mod:`bitex` framework."""
+"""Customized :class:`requests.Response` class for the :mod:`bitex-framework` framework."""
 # Built-in
 from typing import List
 
-# Third-party
-from requests.models import Response
-
 # Home-brew
 from bitex.types import KeyValuePairs, Triple
+
+# Third-party
+from requests.models import Response
 
 
 class BitexResponse(Response):

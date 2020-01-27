@@ -99,13 +99,10 @@ The previous examples would look as follows, if they used the shorthand instead:
     >>>session.post("SomeExchange:BTCUSD/order/new", params=order_options)
     <BitexResponse [200 OK]>
 
-As long as a plugin for `SomeExchange` is installed, :mod:`bitex` will convert the
+As long as a plugin for `SomeExchange` is installed, :mod:`bitex-framework` will convert the
 short-hand to a fully-qualified URL under the hood.
 """
 # Home-brew
-from bitex.adapter import BitexHTTPAdapter
-from bitex.auth import BitexAuth
-from bitex.request import BitexPreparedRequest, BitexRequest
-from bitex.response import BitexResponse
+from src.bitex.adapter import BitexHTTPAdapter
 
 __version__ = "2.0.0"
