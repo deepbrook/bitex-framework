@@ -15,7 +15,7 @@ Github Issues - Bug Reports
     All of these are **required** before work on a bug fix can be started.
 
 Github Issues - Feature Requests
-    If you'd like to see a new feature provided by :mod:`bitex`, you're always
+    If you'd like to see a new feature provided by :mod:`bitex-framework`, you're always
     welcome to submit a feature request on the GitHub issue tracker.
     When you do, be sure to include the following details:
 
@@ -56,7 +56,10 @@ Unit & Integration Tests
     Either of these is required before a PR can be merged (if it touches the codebase).
     If a user story is present in the related PR's GitHub issue, it should be present
     as an integration test. Otherwise, unit tests will suffice.
-    If possible, try not to mock objects living in the :mod:`bitex` project (but
+    If possible, try not to mock objects living in the :mod:`bitex-framework` project (but
     be sensible about when an exception for this is reasonable).
     When in doubt, ask the devs.
 
+Helpful links
+-------------
+[PyCharm FileWatchers](https://gist.github.com/ulope/bd83d36fb83af80a4c2c4d69db5213ff) - Automatically apply `black`, `isort` and `flake8` on file saves.
