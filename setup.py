@@ -22,6 +22,7 @@ setup(
     extras_require={
         'dev': ['black', 'isort', 'flake8'],
         'test': ['pytest', 'pytest-cov', 'tox'],
+        'ci': ['twine'],
     },
 
     # For a list of valid classifiers, see https://pypi.org/classifiers/
