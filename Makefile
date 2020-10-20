@@ -19,12 +19,12 @@ extras-deps: dev-deps test-deps ci-deps
 
 pretty:
 	black  src/bitex
-	isort --recursive src/bitex
+	isort src/bitex
 
 style-check:
 	flake8  src/bitex
 	black --check --diff src/bitex
-	isort --recursive --diff --check-only src/bitex
+	isort --diff --check-only src/bitex
 
 tag-type:
 	@bash .circleci/tag_type.sh
