@@ -36,3 +36,15 @@ def construct_url_from_shorthand(
     pass it on to the :mod:`requests` components as is.
     """
     return None
+
+
+@hookimpl
+def format_instrument_for(instrument: str, exchange: str) -> Union[str, None]:
+    """Since bitex is exchange-agnostic at its core, we return ``instrument`` unmodified."""
+    return instrument
+
+
+@hookimpl
+def format_instrument_from(instrument: str, exchange: str) -> Union[str, None]:
+    """Since bitex is exchange-agnostic at its core, we return ``instrument`` unmodified."""
+    return instrument

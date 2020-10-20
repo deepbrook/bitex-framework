@@ -94,3 +94,23 @@ def construct_url_from_shorthand(
     Note that if the matchdict contains data that needs to be send as part of the
     body, the returned value should be a tuple of `url, body_dict`.
     """
+
+
+@hookspec
+def format_instrument_for(instrument: str, exchange: str) -> Union[str, None]:
+    """Convert the given ``instrument`` to a format accepted by ``exchange``.
+
+    If your exchange has a different notation from most other exchanges, this hook
+    is where you can ensure the instrument passed to requests made to your exchange
+    is valid.
+    """
+
+
+@hookspec
+def format_instrument_from(instrument: str, exchange: str) -> Union[str, None]:
+    """Convert the given ``instrument`` from a format accepted by ``exchange`` to the bitex format.
+
+    If your exchange has a different notation from most other exchanges, this hook
+    is where you can ensure the instrument extracted from responses sent by your exchange
+    is compatible with other exchanges.
+    """
