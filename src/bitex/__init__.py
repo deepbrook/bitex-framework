@@ -106,3 +106,4 @@ short-hand to a fully-qualified URL under the hood.
 from bitex.adapter import BitexHTTPAdapter
 
 __version__ = "2.0.0"
+__all__ = ["BitexHTTPAdapter"]
