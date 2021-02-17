@@ -104,7 +104,8 @@ short-hand to a fully-qualified URL under the hood.
 """
 # Home-brew
 from bitex.adapter import BitexHTTPAdapter
+from bitex.session import BitexSession
 
-__all__ = ["BitexHTTPAdapter"]
+__all__ = ["BitexHTTPAdapter", "BitexSession"]
 
-__version__ = "2.0.0"
+__version__ = "1.0.0"
