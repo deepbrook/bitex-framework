@@ -24,15 +24,3 @@ def announce_plugin() -> Union[
     :class:`.PreparedRequest` and :class:`.Response`.
     """
     return "base", HTTPBasicAuth, PreparedRequest, Response
-
-
-@hookimpl
-def construct_url_from_shorthand(
-    match_dict: Mapping[str, str]
-) -> Union[str, Tuple[str, Dict[str, Any]], None]:
-    """Since bitex is exchange-agnostic at its core, we return `None`.
-
-    Returning `None` causes :mod:`bitex-framework` to leave the given url untouched and
-    pass it on to the :mod:`requests` components as is.
-    """
-    return None

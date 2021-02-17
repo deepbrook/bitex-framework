@@ -41,20 +41,6 @@ hook implementation::
         Tuple[str, Type[HTTPBasicAuth], Type[PreparedRequest], Type[Response]], None
     ]:
         return "uberex", UberExAuth, UberExRequest, UberExResponse
-
-If you want to support parsing of bitex shorthand urls, you'll also have to implement
-the hook for those::
-
-    ...
-    @hookimpl
-    def construct_url_from_shorthand(match_dict: Mapping[str, str]) -> Union[str, None]:
-        constructed_url = f"https://uberex.com/api/v1/{match_dict[method]}"
-        return constructed_url
-
-Where `constructed_url` is obviously a dummy - it's the plugin writers responsibility
-to construct an adequate url from the shorthand, factoring in any method, endpoint
-and parameters given in it.
-
 """
 # Built-in
 from typing import Any, Dict, Mapping, Tuple, Type, Union
@@ -79,18 +65,4 @@ def announce_plugin() -> Union[
         * the auth class to use when generating authentication signatures for it
         * the prepared request class to use when prepping for transmission
         * the response class to use when generating a response from the exchange.
-    """
-
-
-@hookspec
-def construct_url_from_shorthand(
-    match_dict: Mapping[str, str]
-) -> Union[str, Tuple[str, Dict[str, Any]], None]:
-    """Construct the proper REST API URL using the given `match_dict`.
-
-    This allows users of your plugin to use the bitex short-hand for exchanges,
-    when making requests.
-
-    Note that if the matchdict contains data that needs to be send as part of the
-    body, the returned value should be a tuple of `url, body_dict`.
     """
