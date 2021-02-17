@@ -17,7 +17,7 @@ due to the fact that each exchange cooks up their own API spec, with no general
 consensus on HTTP methods, input format or authentication method.
 
 Bitex aims to abstract the gritty details of exchange APIs away, by supplying
-extensions to the popular :mod:`requests` library.
+extensions to the popular requests_ library.
 
 Under the hood, `BitEx` is powered by `Bitex-Framework`, as lightweight framework
 laying the foundation for its features.
@@ -25,17 +25,20 @@ laying the foundation for its features.
 Features
 ========
 
-- Easy to use: Bitex is an extension to the :mod:`requests` library, adding
+- Easy to use: Bitex is an extension to the requests_ library, adding
     under-the-hood magic to take care of formatting and authenticating
     requests to exchanges.
 
-- Extensible: Bitex uses :mod:`pluggy` and a simple hook system to allow developers
+- Extensible: Bitex uses pluggy_ and a simple hook system to allow developers
     to create their own API wrappers. Can't find an extension for the exchange
     of your choice? Simply write your own!
 
 - Sensible set of default methods: Our BitexSession object supplies a robust set
     of common API operations, ranging from requesting market data to order
     modification, as well as withdrawal and deposit methods.
+
+.. _requests: https://requests.readthedocs.io/en/master/
+.. _pluggy: https://pluggy.readthedocs.io/en/latest/
 
 Installation
 ============
@@ -139,7 +142,7 @@ After installing, requesting data is easy::
 Development
 ===========
 
-If you're looking to work on or with :mod:`bitex-framework`, you'll want the development
+If you're looking to work on or with `bitex-framework`, you'll want the development
 environment setup. We've supplied a few `make` targets to make your life easier::
 
     # Install bitex and its development requirements
@@ -157,6 +160,6 @@ We also supply targets to run code formatters, linters and tests::
     # Run tests via tox
     tox -e testenv
 
-If you'd like to contribute to the project, please have a look at :doc:`CONTRIBUTING.rst`
+If you'd like to contribute to the project, please have a look at `CONTRIBUTING.rst`
 on some general pointers about how development takes place, what the expected
 steps of you are and what requirements we have to merge a PR.
