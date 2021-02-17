@@ -77,7 +77,7 @@ class BitexRequest(Request):
 
         .. Note::
 
-            Unlike :meth:BitexSession.prepare_request, this method does *not*
+            Unlike :meth:`BitexSession.prepare_request`, this method does *not*
             apply a custom auth class automatically, if no auth object was given.
         """
         custom_classes = PLUGINS.get(self.exchange)
