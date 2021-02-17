@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 environment:
   GIT_COMMIT_DESC: git log --format=oneline -n 1 $CIRCLE_SHA1
@@ -49,7 +49,7 @@ commands:
     description: Prepare the workspace and venv for job execution.
     steps:
       - attach_workspace:
-          - at: "/home/circleci"
+          at: "/home/circleci"
 
       - run:
           name: Prepend VirtualEnv to $PATH
@@ -109,23 +109,23 @@ commands:
     steps:
       - run: echo "$CACHE_VERSION" > cache_version
       - restore_cache:
-          key: {{ checksum "pyproject.toml" }}-{{ checksum "cache_version"}}
+          key: "{{ checksum 'pyproject.toml' }}-{{ checksum 'cache_version' }}"
 
       - restore_cache:
-          key: pip-cache-{{ checksum "cache_version"}}
+          key: "pip-cache-{{ checksum 'cache_version' }}"
 
   save_project_caches:
     description: Save the pip cache and venv to the CircleCI Cache.
     steps:
       - run: echo "$CACHE_VERSION" > cache_version
       - save_cache:
-          key: {{ checksum "pyproject.toml" }}-{{ checksum "cache_version"}}
+          key: "{{ checksum 'pyproject.toml' }}-{{ checksum 'cache_version'}}"
 
           paths:
             - "/home/circleci/ci/venv"
 
       - save_cache:
-          key: pip-cache-{{ checksum "cache_version"}}
+          key: "pip-cache-{{ checksum 'cache_version'}}"
           paths:
             - "/home/circleci/.cache/pip"
 
@@ -144,15 +144,9 @@ jobs:
       - checkout
       - restore_project_caches
 
-      - run:
-          name: Create virtualenv
-          command: |
-            python -m venv /home/circleci/ci/venv
+      - run: python -m venv /home/circleci/ci/venv
 
-      - run:
-          name: Install project
-          command:
-            - make ci-deps
+      - run: make ci-deps
 
       - persist_to_workspace:
           paths:
@@ -160,6 +154,7 @@ jobs:
           root: "/home/circleci"
 
   finalize:
+    <<: *job_defaults
     steps:
       - save_caches
 
@@ -167,19 +162,13 @@ jobs:
     <<: *job_defaults
     steps:
       - job_setup
-      - lint_step
+      - lint
 
   unit-tests:
     <<: *job_defaults
     steps:
       - job_setup
       - unit_tests
-
-  integration-tests:
-    <<: *job_defaults
-    steps:
-      - job_setup
-      - integration_tests
 
   tagging:
     <<: *job_defaults
@@ -191,6 +180,7 @@ jobs:
     <<: *job_defaults
     steps:
       - job_setup
+      - check_packaging
       - publish_on_pypi
 
 ################################################################################
@@ -202,29 +192,23 @@ jobs:
 workflows:
 
   PR-Workflow:
-    <<: *ignore_master
     jobs:
-      - preparation
+      - preparation: *ignore_master
       - static-checks: {"requires": ["preparation"]}
       - unit-tests: {"requires": ["preparation"]}
-      - integration-tests: {"requires": ["unit-tests"]}
 
   Commit-Workflow:
-    <<: *master_only
     jobs:
-      - preparation
+      - preparation: *master_only
       - static-checks: {"requires": ["preparation"]}
       - unit-tests: {"requires": ["preparation"]}
-      - integration-tests: {"requires": ["unite"]}
       - tagging:
           requires:
           - static-checks
           - unit-tests
-          - integration-tests
 
   Release-Workflow:
-    <<: *tags_only
     jobs:
-      - preparation
-      - packaging: {"requires": ["preparation"]}
-      - publish:  {"requires": ["packaging"]}
+      - preparation: *tags_only
+      - unit-tests: {"requires": ["preparation"]}
+      - publish: {"requires": ["unit-tests"]}
