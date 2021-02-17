@@ -76,7 +76,7 @@ commands:
     steps:
       - run:
           command: |
-            if [[ "$(make tag-type)" == "minor"]]; then
+            if [[ "$(make tag-type)" == "minor" ]]; then
               make tag-feature
               git push --tags
             elif [[ "$(make tag-type)" == "patch" ]]; then
