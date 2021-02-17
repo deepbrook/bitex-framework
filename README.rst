@@ -2,6 +2,10 @@
 BitEx Framework - Bitcoin Exchange REST APIs
 ############################################
 
+.. image:: https://circleci.com/gh/Crypto-toolbox/bitex-framework.svg?style=svg
+    :target: https://app.circleci.com/pipelines/github/Crypto-toolbox/bitex-framework
+
+
 `Bitex` is a python3 library for making requests to crypto currency exchanges
 a breeze. With the ever increasing number of exchanges setting up shop, it becomes
 increasingly more difficult to acquire data in a convenient way. This is mostly
