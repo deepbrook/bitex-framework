@@ -146,6 +146,7 @@ jobs:
       - job_setup
 
       - run: python -m venv /home/circleci/ci/venv
+      - run: pip install --upgrade pip
       - run: make ci-deps
 
       - persist_to_workspace:
