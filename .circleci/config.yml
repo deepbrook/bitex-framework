@@ -76,10 +76,10 @@ commands:
     steps:
       - run:
           command: |
-            if [[ "$(make tag-type)" == "minor" ]]; then
+            if [[ "$(make -C /home/circleci/ci tag-type)" == "minor" ]]; then
               make tag-feature
               git push --tags
-            elif [[ "$(make tag-type)" == "patch" ]]; then
+            elif [[ "$(make  -C /home/circleci/ci tag-type)" == "patch" ]]; then
               make tag-patch
               git push --tags
             else
