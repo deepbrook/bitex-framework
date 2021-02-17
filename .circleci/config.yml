@@ -143,9 +143,9 @@ jobs:
     steps:
       - checkout
       - restore_project_caches
+      - job_setup
 
       - run: python -m venv /home/circleci/ci/venv
-
       - run: make ci-deps
 
       - persist_to_workspace:
