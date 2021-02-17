@@ -61,7 +61,7 @@ commands:
     steps:
       - run:
           name: Run Linters
-          command: make style-check
+          command: cd /home/circleci/ci && make style-check
 
 
   unit_tests:
