@@ -109,11 +109,11 @@ After installing, requesting data is easy::
     # Or for storing them as timestamp-label-value triples
     >>>r.triples()
     [
-        (12432153, "error": []),
+        (12432153, "error", []),
         (12432153, "pair", "XXBTZUSD"),
-        (12432153, "ask": "3809.10000"),
-        (12432153, "ask_whole_lot": "1"),
-        (12432153, "ask_lot": "1.000"),
+        (12432153, "ask", "3809.10000"),
+        (12432153, "ask_whole_lot", "1"),
+        (12432153, "ask_lot", "1.000"),
         (12432153, "bid":"3809.00000"),
         (12432153, "bid_whole_lot", "1"),
         (12432153, "bid_lot", "1.000"),
@@ -123,13 +123,13 @@ After installing, requesting data is easy::
         (12432153, "vol_24h", "4120.69226171"),
         (12432153, "vwap_today", "3798.72908"),
         (12432153, "vwap_24h", "3797.90051"),
-        (12432153, "trades_today": 1960,
-        (12432153, "trades_24h": 5958,
+        (12432153, "trades_today", 1960,
+        (12432153, "trades_24h", 5958,
         (12432153, "low_today", "3776.90000"),
         (12432153, "low_24h", "3775.80000"),
         (12432153, "high_today", "3817.60000"),
         (12432153, "high_24h", "3819.30000"),
-        (12432153, "open":"3796.20000"),
+        (12432153, "open", "3796.20000"),
     ]
 
 Development
