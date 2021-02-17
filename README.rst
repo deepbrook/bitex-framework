@@ -2,8 +2,8 @@
 BitEx Framework - Bitcoin Exchange REST APIs
 ############################################
 
-.. image:: https://circleci.com/gh/Crypto-toolbox/bitex-framework.svg?style=svg
-    :target: https://app.circleci.com/pipelines/github/Crypto-toolbox/bitex-framework
+.. image:: https://circleci.com/gh/deepbrook/bitex-framework.svg?style=svg
+    :target: https://app.circleci.com/pipelines/github/deepbrook/bitex-framework
     :alt: CI Status
 
 .. image:: https://readthedocs.org/projects/bitex-framework/badge/?version=latest
