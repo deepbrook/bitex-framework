@@ -43,25 +43,22 @@ hook implementation::
         return "uberex", UberExAuth, UberExRequest, UberExResponse
 """
 # Built-in
-from typing import Any, Dict, Mapping, Tuple, Type, Union
+from typing import Tuple, Type, Union
 
 # Third-party
 import pluggy
-
 from requests import PreparedRequest, Response
-from requests.auth import HTTPBasicAuth
-from requests.auth import AuthBase
+from requests.auth import AuthBase, HTTPBasicAuth
 
 hookspec = pluggy.HookspecMarker("bitex")
 hookimpl = pluggy.HookimplMarker("bitex-core")
 
 
 class AnnouncePluginHookSpec:
-
     @hookspec
-    def announce_plugin(self) -> Union[
-        Tuple[str, Type[AuthBase], Type[PreparedRequest], Type[Response]], None
-    ]:
+    def announce_plugin(
+        self,
+    ) -> Union[Tuple[str, Type[AuthBase], Type[PreparedRequest], Type[Response]], None]:
         """Announce plugin classes to :mod:`bitex-framework`.
 
         The function should return a tuple with the following items:
