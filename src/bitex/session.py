@@ -41,8 +41,8 @@ class BitexSession(requests.Session):
     def __init__(self, auth: Optional[BitexAuth] = None) -> None:
         super(BitexSession, self).__init__()
         self.auth = auth
-        self.adapters["http://"] = BitexHTTPAdapter
-        self.adapters["https://"] = BitexHTTPAdapter
+        self.adapters["http://"] = BitexHTTPAdapter()
+        self.adapters["https://"] = BitexHTTPAdapter()
 
     def request(
         self,
