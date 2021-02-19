@@ -30,11 +30,10 @@ hook implementation::
 
     # Third-party
     import pluggy
+    from bitex.plugins import hookimpl
 
     # Home-brew
     from bitex.plugins.uberex.classes import UberExAuth, UberExRequest, UberExResponse
-
-    hookimpl = pluggy.HookimplMarker("bitex-uberex")
 
     @hookimpl
     def announce_plugin() -> Union[
@@ -51,7 +50,7 @@ from requests import PreparedRequest, Response
 from requests.auth import AuthBase, HTTPBasicAuth
 
 hookspec = pluggy.HookspecMarker("bitex")
-hookimpl = pluggy.HookimplMarker("bitex-core")
+hookimpl = pluggy.HookimplMarker("bitex")
 
 
 class AnnouncePluginHookSpec:
