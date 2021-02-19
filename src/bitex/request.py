@@ -26,7 +26,7 @@ class BitexPreparedRequest(PreparedRequest):
         super(BitexPreparedRequest, self).__init__()
 
     @staticmethod
-    def check_url_for_shorthand(url) -> Union[RegexMatchDict, None]:
+    def search_url_for_shorthand(url) -> Union[RegexMatchDict, None]:
         """Check if the given URL is a bitex short-hand.
 
         If it is, we return the value of :meth:`re.Match.groupdict`; otherwise
@@ -40,6 +40,10 @@ class BitexPreparedRequest(PreparedRequest):
         except AttributeError:
             # Not a valid shorthand url, return None
             return None
+
+    def __repr__(self):
+        """Extend original class's __repr__."""
+        return f"<{self.__class__.__qualname__} [{self.status_code}]>"
 
 
 class BitexRequest(Request):
