@@ -7,7 +7,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name="bitex-framework",
-    version="1.2.1",
+    version="1.2.2",
     author='Nils Diefenbach',
     author_email='nlsdfnbch.foss@kolabnow.com',
     description="Core Module of the Bitcoin Exchange (BitEx) REST API Framwork",  # Optional
