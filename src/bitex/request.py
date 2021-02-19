@@ -11,7 +11,7 @@ from bitex.constants.private import (
     BITEX_SHORTHAND_NO_ACTION_REGEX,
     BITEX_SHORTHAND_WITH_ACTION_REGEX,
 )
-from bitex.plugins import PLUGINS
+from bitex.plugins import list_loaded_plugins
 from bitex.types import RegexMatchDict
 
 
@@ -80,7 +80,7 @@ class BitexRequest(Request):
             Unlike :meth:`BitexSession.prepare_request`, this method does *not*
             apply a custom auth class automatically, if no auth object was given.
         """
-        custom_classes = PLUGINS.get(self.exchange)
+        custom_classes = list_loaded_plugins().get(self.exchange)
         if custom_classes:
             p = custom_classes["PreparedRequest"](self.exchange)
         else:

@@ -7,7 +7,7 @@ from requests.utils import get_encoding_from_headers
 from urllib3.response import HTTPResponse
 
 # Home-brew
-from bitex.plugins import PLUGINS
+from bitex.plugins import list_loaded_plugins
 from bitex.request import BitexPreparedRequest
 from bitex.response import BitexResponse
 
@@ -35,8 +35,8 @@ class BitexHTTPAdapter(HTTPAdapter):
             The :class:`BitexPreparedRequest` used to generate the response.
         :param HTTPResponse resp: The urllib3 response object.
         """
-        if req.exchange in PLUGINS:
-            response = PLUGINS[req.exchange]["Response"]()
+        if req.exchange in list_loaded_plugins():
+            response = list_loaded_plugins()[req.exchange]["Response"]()
         else:
             response = BitexResponse()
 

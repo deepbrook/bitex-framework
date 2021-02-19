@@ -14,7 +14,7 @@ from requests.utils import get_netrc_auth
 # Home-brew
 from bitex.adapter import BitexHTTPAdapter
 from bitex.auth import BitexAuth
-from bitex.plugins import PLUGINS
+from bitex.plugins import list_loaded_plugins
 from bitex.request import BitexPreparedRequest, BitexRequest
 from bitex.response import BitexResponse
 
@@ -100,7 +100,7 @@ class BitexSession(requests.Session):
         """Prepare a :class:`BitexPreparedRequest` object for transmission.
 
         This implementation extends :class:`requests.Session.prepare_request` by
-        making a call to :data:`bitex.PLUGINS` and checking if we have any plugins
+        making a call to :data:`bitex.list_loaded_plugins` and checking if we have any plugins
         that may provide a custom :class:`BitexPreparedRequest` class.
         """
         cookies = request.cookies or {}
@@ -117,10 +117,9 @@ class BitexSession(requests.Session):
         auth = request.auth
         if self.trust_env and not auth and not self.auth:
             auth = get_netrc_auth(request.url)
-
         # Inject any custom classes for handling the exchange stated in the
         # BitexRequest object.
-        custom_classes = PLUGINS.get(request.exchange, None)
+        custom_classes = list_loaded_plugins().get(request.exchange, None)
         if custom_classes:
             p = custom_classes["PreparedRequest"](request.exchange)
             # Only use the custom auth class if no auth object was
