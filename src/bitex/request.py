@@ -58,8 +58,11 @@ class BitexRequest(Request):
 
     def __init__(self, private: bool = False, **kwargs) -> None:
         super(BitexRequest, self).__init__(**kwargs)
-        self.exchange = self.parse_target_exchange()
         self.private = private
+
+    @property
+    def exchange(self):
+        return self.parse_target_exchange()
 
     def __repr__(self) -> str:
         """Extend original class's __repr__."""

@@ -48,24 +48,24 @@ class TestBitexRequest:
 
 
 class TestBitexPreparedRequest:
-    def test_check_url_for_shorthand_successfully_parses_shorthands_without_an_action(self):
+    def test_search_url_for_shorthand_successfully_parses_shorthands_without_an_action(self):
         url = "MyExchange:MyPair/ticker"
-        result = BitexPreparedRequest.check_url_for_shorthand(url)
+        result = BitexPreparedRequest.search_url_for_shorthand(url)
         assert result is not None
         assert result["exchange"] == "MyExchange"
         assert result["instrument"] == "MyPair"
         assert result["endpoint"] == "ticker"
 
-    def test_check_url_for_shorthand_successfully_parses_shorthands_with_an_action(self):
+    def test_search_url_for_shorthand_successfully_parses_shorthands_with_an_action(self):
         url = "MyExchange:MyPair/order/new"
-        result = BitexPreparedRequest.check_url_for_shorthand(url)
+        result = BitexPreparedRequest.search_url_for_shorthand(url)
         assert result is not None
         assert result["exchange"] == "MyExchange"
         assert result["instrument"] == "MyPair"
         assert result["endpoint"] == "order"
         assert result["action"] == "new"
 
-    def test_check_url_for_shorthand_returns_none_if_the_shorthand_is_not_valid(self):
+    def test_search_url_for_shorthand_returns_none_if_the_shorthand_is_not_valid(self):
         url = "https://somehwere.com/123"
-        result = BitexPreparedRequest.check_url_for_shorthand(url)
+        result = BitexPreparedRequest.search_url_for_shorthand(url)
         assert result is None
