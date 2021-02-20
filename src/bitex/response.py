@@ -34,6 +34,24 @@ class BitexResponse(Response):
                 (<timestamp>, <label>, <value>),
                 ...
             ]
+
+        There are certain rows which should be always present (and are encouraged to be implemented
+        by exchange plugin developers):
+
+        - `pair`: denotes the crytpo pair a colelction of triples belongs to
+        - `received`: denotes the timestamp at the time of creation of this Response, specifically, when
+                the instance's :meth:`BitexResponse.__init__` method was first called.
+
+        Also note, that the `timestamp` field in the above example **should** be the ts of the data as given by the
+        exchange and is ** should not** be the timestamp of reception (i.e. instantiation of the response instance).
+        The time of reception is always found at the `received` key.
+
+        ..admonition::Disclaimer
+
+            As these formatter functions are implemented by plugin developers, we cannot fully guarantee that the
+            presented fields above are in fact **always** present. It's your duty to double-check the exchange plugin
+            documentation and/or code to make sure the fields are present.
+
         """
         raise NotImplementedError
 
@@ -48,5 +66,18 @@ class BitexResponse(Response):
                 <label>: <value>,
                 ...
             }
+
+        There are certain keys which should be always present (and are encouraged to be implemented
+        by exchange plugin developers):
+
+        - `pair`: denotes the crytpo pair a colelction of kv dictionaries belongs to
+        - `received`: denotes the timestamp at the time of creation of this Response, specifically, when
+                the instance's :meth:`BitexResponse.__init__` method was first called.
+
+        ..admonition::Disclaimer
+
+            As these formatter functions are implemented by plugin developers, we cannot fully guarantee that the
+            presented fields above are in fact **always** present. It's your duty to double-check the exchange plugin
+            documentation and/or code to make sure the fields are present.
         """
         raise NotImplementedError
