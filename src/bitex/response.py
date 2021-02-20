@@ -1,7 +1,8 @@
 """Customized :class:`requests.Response` class for the :mod:`bitex-framework` framework."""
 # Built-in
-from typing import List
 import time
+from typing import List
+
 # Third-party
 from requests.models import Response
 
