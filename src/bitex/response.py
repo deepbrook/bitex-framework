@@ -1,7 +1,7 @@
 """Customized :class:`requests.Response` class for the :mod:`bitex-framework` framework."""
 # Built-in
 from typing import List
-
+import time
 # Third-party
 from requests.models import Response
 
@@ -15,6 +15,10 @@ class BitexResponse(Response):
     Supplies additional format outputs of the underlying `JSON` data, as returned
     by :meth:`.json`.
     """
+
+    def __init__(self):
+        self.received = str(time.time())
+        super(BitexResponse, self).__init__()
 
     def __repr__(self):
         """Extend original class's __repr__."""
