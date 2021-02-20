@@ -108,4 +108,4 @@ from bitex.session import BitexSession
 
 __all__ = ["BitexHTTPAdapter", "BitexSession"]
 
-__version__ = "1.2.2"
+__version__ = "1.2.3"
